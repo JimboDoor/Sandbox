@@ -1,3 +1,6 @@
+using System.Runtime;
+using System.Runtime.CompilerServices;
+
 void Login(string[,] LoginData)
 {
     string[,] TempLoginData = LoginData;
@@ -135,6 +138,35 @@ void BubbleSort(string[] Array)
     StrArrayOutput(Array);
 }
 
+void BinarySearch(string[] Array, string Target)
+{
+    int Head = Array.Length - 1;
+    int Tail = 0;
+    int Mid = Array.Length / 2;
+    bool found = false;
+    int IndexFound = 0;
+
+    while(!found)
+    {
+        if (Target == Array[Mid])
+        {
+            found = true;
+            IndexFound = Mid;
+        }
+        else if (Convert.ToUInt16(char.Parse(Target.Substring(0,1))) > Convert.ToUInt16(char.Parse(Array[Mid].Substring(0,1))))
+        {
+            Tail = Mid;
+            Mid = (Head + Tail) / 2;
+        }
+        else
+        {
+            Head = Mid;
+            Mid = (Head + Tail) / 2;
+        }
+    }
+    Console.WriteLine($"{Target} is at index {IndexFound}");
+}
+
 //List of usernames and passwords for the login system.
 //string[,] Accounts = {{"Jimmy102", "Tim102", "Will102"},
 //                      {"Password123", "Login123", "Login345"}};
@@ -144,11 +176,15 @@ void BubbleSort(string[] Array)
 
 string[] Students = {"Jimmy", "Fin", "Harry", "Cody", "Tom", "Ruben", "Aiaa", "Matt"};
 
-/*Console.WriteLine("What student are you looking for?:"); //User enters target student.
+Console.WriteLine("What student are you looking for?:"); //User enters target student.
 string StudentRequest = Console.ReadLine();
 
-//Outputs whether the student is present in the database.
+/*//Outputs whether the student is present in the database.
 bool InArray = LinearSearch(Students, StudentRequest);
 Console.WriteLine($"{InArray}: The student is not in the database.");*/
 
-BubbleSort(Students);
+//Outputs a sorted array for the user using a bubble sort method.
+//BubbleSort(Students);
+
+//Searches and outputs the position of an item in an array.
+BinarySearch(Students, StudentRequest); //Does not like index 1
