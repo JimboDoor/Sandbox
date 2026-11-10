@@ -143,28 +143,29 @@ void BinarySearch(string[] Array, string Target)
     int Head = Array.Length - 1;
     int Tail = 0;
     int Mid = Array.Length / 2;
-    bool found = false;
     int IndexFound = 0;
 
-    while(!found)
+    while (Tail <= Head)
     {
+        Mid = (Head + Tail) / 2;
+
         if (Target == Array[Mid])
         {
-            found = true;
             IndexFound = Mid;
+            Console.WriteLine($"The student is in the database at index: {IndexFound}.");
+            return;
         }
-        else if (Convert.ToUInt16(char.Parse(Target.Substring(0,1))) > Convert.ToUInt16(char.Parse(Array[Mid].Substring(0,1))))
+        else if (string.CompareOrdinal(Target, Array[Mid]) > 0)
         {
-            Tail = Mid;
-            Mid = (Head + Tail) / 2;
+            Tail = Mid + 1;
         }
         else
         {
-            Head = Mid;
-            Mid = (Head + Tail) / 2;
+            Head = Mid - 1;
         }
     }
-    Console.WriteLine($"{Target} is at index {IndexFound}");
+
+    Console.WriteLine("The student is not in the database.");
 }
 
 //List of usernames and passwords for the login system.
@@ -175,6 +176,7 @@ void BinarySearch(string[] Array, string Target)
 //Login(Accounts);
 
 string[] Students = {"Jimmy", "Fin", "Harry", "Cody", "Tom", "Ruben", "Aiaa", "Matt"};
+string[] SortedStudents = {"Aiaa", "Cody", "Fin", "Harry", "Jimmy", "Matt", "Ruben", "Tom"};
 
 Console.WriteLine("What student are you looking for?:"); //User enters target student.
 string StudentRequest = Console.ReadLine();
@@ -187,4 +189,4 @@ Console.WriteLine($"{InArray}: The student is not in the database.");*/
 //BubbleSort(Students);
 
 //Searches and outputs the position of an item in an array.
-BinarySearch(Students, StudentRequest); //Does not like index 1
+BinarySearch(SortedStudents, StudentRequest);
